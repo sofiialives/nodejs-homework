@@ -15,28 +15,26 @@ async function getContactById(contactId) {
   return byId || null;
 }
 
-async function addContact(name, email, phone) {
-  const data = await listContacts();
+async function addContact(data) {
+  const list = await listContacts();
   const newContact = {
     id: nanoid(),
-    name,
-    email,
-    phone,
+    ...data
   };
-  data.push(newContact);
-  await fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
+  list.push(newContact);
+  await fs.writeFile(contactsPath, JSON.stringify(list, null, 2));
   return newContact;
 }
 
-async function updateContact(id, name, email, phone) {
-  const data = await listContacts();
-  const index = data.findIndex((item) => item.id === id);
+async function updateContact(id, data) {
+  const list = await listContacts();
+  const index = list.findIndex((item) => item.id === id);
   if (index === -1) {
     return null;
   }
-  data[index] = { id, name, email, phone };
-  await fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
-  return data[index];
+  list[index] = { id, ...data };
+  await fs.writeFile(contactsPath, JSON.stringify(list, null, 2));
+  return list[index];
 }
 
 async function removeContact(contactId) {

@@ -3,14 +3,23 @@ const Joi = require("joi");
 const addSchema = Joi.object({
   name: Joi.string()
     .required()
-    .message({ "any.required": "missing required name field" }),
+    .messages({ "any.required": "missing required name field" }),
   email: Joi.string()
     .email()
     .required()
-    .message({ "any.required": "missing required email field" }),
+    .messages({ "any.required": "missing required email field" }),
   phone: Joi.number()
     .required()
-    .message({ "any.required": "missing required phone field" }),
+    .messages({ "any.required": "missing required phone field" }),
 });
 
-module.exports = { addSchema };
+const updateSchema = Joi.object({
+  name: Joi.string(),
+  email: Joi.string()
+    .email(),
+  phone: Joi.number()
+}).min(1)
+.required()
+.messages({ 'object.min': 'missing fields' });;
+
+module.exports = { addSchema, updateSchema };
