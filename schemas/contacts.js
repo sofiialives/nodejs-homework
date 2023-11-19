@@ -8,18 +8,18 @@ const addSchema = Joi.object({
     .email()
     .required()
     .messages({ "any.required": "missing required email field" }),
-  phone: Joi.number()
+  phone: Joi.string()
     .required()
     .messages({ "any.required": "missing required phone field" }),
 });
 
 const updateSchema = Joi.object({
   name: Joi.string(),
-  email: Joi.string()
-    .email(),
-  phone: Joi.number()
-}).min(1)
-.required()
-.messages({ 'object.min': 'missing fields' });;
+  email: Joi.string().email(),
+  phone: Joi.string(),
+})
+  .min(1)
+  .required()
+  .messages({ "object.min": "missing fields" });
 
 module.exports = { addSchema, updateSchema };
