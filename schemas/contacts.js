@@ -13,13 +13,13 @@ const addSchema = Joi.object({
     .messages({ "any.required": "missing required phone field" }),
 });
 
-const updateSchema = Joi.object({
-  name: Joi.string(),
-  email: Joi.string().email(),
-  phone: Joi.string(),
-})
-  .min(1)
-  .required()
-  .messages({ "object.min": "missing fields" });
+// const updateSchema = Joi.object({
+//   name: Joi.string(),
+//   email: Joi.string().email(),
+//   phone: Joi.string(),
+// })
+//   .min(1)
+//   .required()
+//   .messages({ "object.min": "missing fields" });
 
-module.exports = { addSchema, updateSchema };
+module.exports = { addSchema };
