@@ -40,15 +40,25 @@ const addSchema = Joi.object({
   favorite: Joi.boolean(),
 });
 
+const updateSchema = Joi.object({
+  name: Joi.string().min(3).max(30),
+  email: Joi.string().email(),
+  phone: Joi.string().min(5).max(15),
+  favorite: Joi.boolean(),
+})
+  .min(1)
+  .messages({ 'object.min': 'missing fields' });
+
 const updateFavSchema = Joi.object({
   favorite: Joi.boolean()
     .required()
-    .messages({ "any.required": "missing required favorite field" }),
+    .messages({ "any.required": "missing field favorite" }),
 });
 
 const schemas = {
   addSchema,
-  updateFavSchema
+  updateFavSchema,
+  updateSchema
 };
 
 const Contact = model("contact", contactSchema);
