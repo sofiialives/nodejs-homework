@@ -20,6 +20,11 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -47,7 +52,7 @@ const updateSchema = Joi.object({
   favorite: Joi.boolean(),
 })
   .min(1)
-  .messages({ 'object.min': 'missing fields' });
+  .messages({ "object.min": "missing fields" });
 
 const updateFavSchema = Joi.object({
   favorite: Joi.boolean()
@@ -58,7 +63,7 @@ const updateFavSchema = Joi.object({
 const schemas = {
   addSchema,
   updateFavSchema,
-  updateSchema
+  updateSchema,
 };
 
 const Contact = model("contact", contactSchema);
